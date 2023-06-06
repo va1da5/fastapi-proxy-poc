@@ -1,0 +1,244 @@
+{
+  "info": {
+    "_postman_id": "96ec169f-8aa6-4ddb-af95-f0a6d65148a1",
+    "name": "HashiCorp Vault",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "23896031"
+  },
+  "item": [
+    {
+      "name": "Generate Root Token",
+      "item": [
+        {
+          "name": "Get Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set(\"nonce\", pm.response.json().nonce);",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{VAULT_ADDR}}/v1/sys/generate-root/attempt",
+              "host": [
+                "{{VAULT_ADDR}}"
+              ],
+              "path": [
+                "v1",
+                "sys",
+                "generate-root",
+                "attempt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Cancel",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{VAULT_ADDR}}/v1/sys/generate-root/attempt",
+              "host": [
+                "{{VAULT_ADDR}}"
+              ],
+              "path": [
+                "v1",
+                "sys",
+                "generate-root",
+                "attempt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Init",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set(\"nonce\", pm.response.json().nonce);",
+                  ""
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{VAULT_ADDR}}/v1/sys/generate-root/attempt",
+              "host": [
+                "{{VAULT_ADDR}}"
+              ],
+              "path": [
+                "v1",
+                "sys",
+                "generate-root",
+                "attempt"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Submit Key",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"key\" : \"+6S56mwQ5iJGeW4gtqYe+O22CX3RTg+XtwTvUFz3SQI=\",\n    \"nonce\": \"{{nonce}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{VAULT_ADDR}}/v1/sys/generate-root/update",
+              "host": [
+                "{{VAULT_ADDR}}"
+              ],
+              "path": [
+                "v1",
+                "sys",
+                "generate-root",
+                "update"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Rotate Keys",
+      "item": [
+        {
+          "name": "Status",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set(\"nonce\", pm.response.json().nonce);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{VAULT_ADDR}}/v1/sys/rekey/init",
+              "host": [
+                "{{VAULT_ADDR}}"
+              ],
+              "path": [
+                "v1",
+                "sys",
+                "rekey",
+                "init"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Init",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.environment.set(\"nonce\", pm.response.json().nonce);"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"secret_shares\": 3,\n    \"secret_threshold\": 2\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{VAULT_ADDR}}/v1/sys/rekey/init",
+              "host": [
+                "{{VAULT_ADDR}}"
+              ],
+              "path": [
+                "v1",
+                "sys",
+                "rekey",
+                "init"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "Submit Key",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n    \"key\" : \"+6S56mwQ5iJGeW4gtqYe+O22CX3RTg+XtwTvUFz3SQI=\",\n    \"nonce\": \"{{nonce}}\"\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "{{VAULT_ADDR}}/v1/sys/rekey/update",
+              "host": [
+                "{{VAULT_ADDR}}"
+              ],
+              "path": [
+                "v1",
+                "sys",
+                "rekey",
+                "update"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
